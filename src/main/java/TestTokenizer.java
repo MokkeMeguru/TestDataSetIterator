@@ -1,3 +1,4 @@
+import org.datavec.api.records.reader.impl.csv.CSVNLinesSequenceRecordReader;
 import org.datavec.api.records.reader.impl.csv.CSVRecordReader;
 import org.datavec.api.split.FileSplit;
 import org.datavec.api.writable.Writable;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface TestTokenizer {
-    static void saveTokens (File sourceFile, File featureFile, File labelFile) throws IOException, InterruptedException {
+    static int saveTokens (File sourceFile, File featureFile, File labelFile) throws IOException, InterruptedException {
         PrintWriter pf;
         PrintWriter lf;
         CSVRecordReader csvRecordReader = new CSVRecordReader(0, ",");
@@ -23,12 +24,20 @@ public interface TestTokenizer {
                 new BufferedWriter(
                         new FileWriter(labelFile, false)));
 
+        // feature's max length
+        int featureMax = 0;
+
         while (csvRecordReader.hasNext()) {
             List<Writable> writableList = csvRecordReader.next();
 
             // parse string -> tokenize them -> save as feature_data
             String string = writableList.get(0).toString();
             List<String> stringList = Arrays.asList(string.split("[\\s]+"));
+
+            if (featureMax < stringList.size()) {
+                featureMax = stringList.size();
+            }
+
             List<Integer> integerList =
                     stringList.stream()
                             .map(Integer::valueOf)
@@ -50,11 +59,19 @@ public interface TestTokenizer {
         lf.close();
         pf.close();
 
+        return featureMax;
     }
 
     static void main (String... args) throws IOException, InterruptedException {
-        TestTokenizer.saveTokens(new File("resources/test_source.csv"),
-                new File("resources/test_feature.csv"),
-                new File("resources/test_label.csv"));
+        int featureMax =
+                TestTokenizer.saveTokens(new File("resources/test_source.csv"),
+                    new File("resources/test_feature.csv"),
+                    new File("resources/test_label.csv"));
+        System.out.println("Maximum feature's length: " + featureMax);
+
+        // raw-data read and parse => CSVLineSequenceRecordReader : because we can't know feature's maximum length.
+        // parsed-data read : CSVNLineSequenceRecordReader : because we found feature's maximum length
+        CSVNLinesSequenceRecordReader csvnLinesSequenceRecordReader = new CSVNLinesSequenceRecordReader(featureMax, 0,",");
+        // do something ...
     }
 }
