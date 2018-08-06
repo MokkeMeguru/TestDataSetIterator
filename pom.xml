@@ -8,7 +8,7 @@
     <artifactId>TestDataSetIterator</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <deeplearning4j.version>1.0.0-beta</deeplearning4j.version>
+        <deeplearning4j.version>1.0.0-SNAPSHOT</deeplearning4j.version>
         <!-- <nd4j.backend>nd4j-native-platform</nd4j.backend> -->
         <nd4j.backend>nd4j-cuda-9.1-platform</nd4j.backend>
     </properties>
