@@ -240,13 +240,11 @@
     </configuration>
     <list>
       <item itemvalue="Application.TestDataSetIterator" />
-      <item itemvalue="Application.TestDataSetIterator1" />
       <item itemvalue="Application.TestTokenizer" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.TestTokenizer" />
-        <item itemvalue="Application.TestDataSetIterator1" />
         <item itemvalue="Application.TestDataSetIterator" />
       </list>
     </recent_temporary>
