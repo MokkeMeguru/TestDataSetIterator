@@ -21,7 +21,7 @@ import java.util.List;
 
 
 public interface TestDataSetIterator {
-    static DataSetIterator createDataSetIterator (int featureMax, int labelSize, File featureFile, File labelFile) throws IOException, InterruptedException {
+    static DataSetIterator createDataSetIterator (int labelSize, File featureFile, File labelFile) throws IOException, InterruptedException {
 
         Configuration conf = new Configuration();
 
@@ -76,7 +76,6 @@ public interface TestDataSetIterator {
                 new File("resources/test_feature.csv"),
                 new File("resources/test_label.csv"));
         DataSetIterator dsi = createDataSetIterator(
-                featureMax,
                 5,
                 new File("resources/test_feature.csv"),
                 new File("resources/test_label.csv")
