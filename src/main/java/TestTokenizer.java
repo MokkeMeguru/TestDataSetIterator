@@ -1,3 +1,4 @@
+import org.datavec.api.records.reader.impl.csv.CSVLineSequenceRecordReader;
 import org.datavec.api.records.reader.impl.csv.CSVNLinesSequenceRecordReader;
 import org.datavec.api.records.reader.impl.csv.CSVRecordReader;
 import org.datavec.api.split.FileSplit;
@@ -48,7 +49,7 @@ public interface TestTokenizer {
                 if (iterable.hasNext())
                     pf.print(",");
             }
-            lf.print(writableList.get(1).toInt());
+            lf.print(writableList.get(1).toInt() - 1);
 
             if (csvRecordReader.hasNext()) {
                 lf.println();
@@ -71,7 +72,7 @@ public interface TestTokenizer {
 
         // raw-data read and parse => CSVLineSequenceRecordReader : because we can't know feature's maximum length.
         // parsed-data read : CSVNLineSequenceRecordReader : because we found feature's maximum length
-        CSVNLinesSequenceRecordReader csvnLinesSequenceRecordReader = new CSVNLinesSequenceRecordReader(featureMax, 0,",");
+        CSVLineSequenceRecordReader csvnLinesSequenceRecordReader = new CSVLineSequenceRecordReader(0, ',');
         // do something ...
     }
 }
