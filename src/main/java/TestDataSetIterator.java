@@ -75,6 +75,7 @@ public interface TestDataSetIterator {
                 new File("resources/test_source.csv"),
                 new File("resources/test_feature.csv"),
                 new File("resources/test_label.csv"));
+        System.out.println("Maximum feature's length: " + featureMax);
         DataSetIterator dsi = createDataSetIterator(
                 5,
                 new File("resources/test_feature.csv"),
